@@ -66,7 +66,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {               // по клику
         System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
         return false;
     }

@@ -37,7 +37,7 @@ public class EnemyEmitter {
     private Sound shootSound;
     private TextureRegion bulletRegion;
 
-    private float generateInterval = 4f;
+    private float generateInterval = 2f;
     private float generateTimer;
 
     private final TextureRegion[] enemySmallRegion;
@@ -45,11 +45,8 @@ public class EnemyEmitter {
     private final TextureRegion[] enemyBigRegion;
 
     private final Vector2 enemySmallV;
-    private final Vector2 enemySmallAcceleration;
     private final Vector2 enemyMediumV;
-   private final Vector2 enemyMediumAcceleration;
     private final Vector2 enemyBigV;
-    private final Vector2 enemyBigAcceleration;
 
     private final EnemyPool enemyPool;
 
@@ -67,9 +64,6 @@ public class EnemyEmitter {
         this.enemySmallV = new Vector2(0, -0.2f);
         this.enemyMediumV = new Vector2(0, -0.03f);
         this.enemyBigV = new Vector2(0, -0.005f);
-        this.enemySmallAcceleration = new Vector2(0, -0.2f);
-        this.enemyMediumAcceleration = new Vector2(0, -0.1f);
-        this.enemyBigAcceleration = new Vector2(0, -0.3f);
     }
 
     public void generate(float delta) {
@@ -78,11 +72,10 @@ public class EnemyEmitter {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
             float type = (float) Math.random();
-            if (type < 0.6f) {
+            if (type < 0.5f) {
                 enemy.set(
                         enemySmallRegion,
                         enemySmallV,
-                        enemySmallAcceleration,
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         ENEMY_SMALL_BULLET_VY,
@@ -92,11 +85,10 @@ public class EnemyEmitter {
                         ENEMY_SMALL_HP,
                         ENEMY_SMALL_HEIGHT
                 );
-            } else if (type < 0.85f) {
+            } else if (type < 0.8f) {
                 enemy.set(
                         enemyMediumRegion,
                         enemyMediumV,
-                        enemyMediumAcceleration,
                         bulletRegion,
                         ENEMY_MEDIUM_BULLET_HEIGHT,
                         ENEMY_MEDIUM_BULLET_VY,
@@ -110,7 +102,6 @@ public class EnemyEmitter {
                 enemy.set(
                         enemyBigRegion,
                         enemyBigV,
-                        enemyBigAcceleration,
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
                         ENEMY_BIG_BULLET_VY,

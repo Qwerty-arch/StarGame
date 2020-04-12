@@ -129,6 +129,7 @@ public class GameScreen extends BaseScreen {
         }
         if (state == State.GAME_OVER) {
             buttonNewGame.touchDown(touch, pointer, button);
+            mainShip.touchDown(new Vector2(0,0),0, 0);
         }
         return false;
     }
@@ -140,6 +141,7 @@ public class GameScreen extends BaseScreen {
         }
         if (state == State.GAME_OVER) {
             buttonNewGame.touchUp(touch, pointer, button);
+            mainShip.touchUp(new Vector2(0,0),0, 0);
         }
         return false;
     }

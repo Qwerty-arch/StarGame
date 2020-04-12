@@ -1,6 +1,5 @@
 package ru.geekbrains.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -28,9 +27,6 @@ import ru.geekbrains.utils.EnemyEmitter;
 
 public class GameScreen extends BaseScreen {
 
-    public GameScreen() {
-    }
-
     private enum State {PLAYING, PAUSE, GAME_OVER}
 
     private static final int STAR_COUNT = 64;
@@ -43,7 +39,7 @@ public class GameScreen extends BaseScreen {
     private Star[] stars;
     private MainShip mainShip;
     private GameOver gameOver;
-    private ButtonNewGame buttonNewGame;        //////////////
+    private ButtonNewGame buttonNewGame;
 
     private BulletPool bulletPool;
     private EnemyPool enemyPool;
@@ -55,6 +51,7 @@ public class GameScreen extends BaseScreen {
     private Sound bulletSound;
     private Sound explosion;
     private State state;
+
 
     @Override
     public void show() {
@@ -130,6 +127,9 @@ public class GameScreen extends BaseScreen {
         if (state == State.PLAYING) {
             mainShip.touchDown(touch, pointer, button);
         }
+        if (state == State.GAME_OVER) {
+            buttonNewGame.touchDown(touch, pointer, button);
+        }
         return false;
     }
 
@@ -137,6 +137,9 @@ public class GameScreen extends BaseScreen {
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         if (state == State.PLAYING) {
             mainShip.touchUp(touch, pointer, button);
+        }
+        if (state == State.GAME_OVER) {
+            buttonNewGame.touchUp(touch, pointer, button);
         }
         return false;
     }
@@ -150,7 +153,7 @@ public class GameScreen extends BaseScreen {
             }
             mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
             gameOver = new GameOver(atlas);
-            buttonNewGame = new ButtonNewGame(atlas);
+            buttonNewGame = new ButtonNewGame(atlas, this);
         } catch (GameException e) {
             throw new RuntimeException(e);
         }
@@ -213,6 +216,15 @@ public class GameScreen extends BaseScreen {
         bulletPool.freeAllDestroyedActiveObjects();
         enemyPool.freeAllDestroyedActiveObjects();
         explosionPool.freeAllDestroyedActiveObjects();
+    }
+
+    public void restartGame() {
+        mainShip.setHP(mainShip.HP);
+        enemyPool.dispose();
+        bulletPool.dispose();
+        mainShip.setDestroyed(false);
+        mainShip.setLeft(-0.05f);
+        state = State.PLAYING;
     }
 
     private void draw() {

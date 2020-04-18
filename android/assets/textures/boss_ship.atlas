@@ -1,0 +1,12 @@
+boss_ship.png
+size: 754, 399
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_ship
+  rotate: false
+  xy: 0, 0
+  size: 754, 399
+  orig: 754, 399
+  offset: 0, 0
+  index: -1

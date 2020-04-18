@@ -13,7 +13,7 @@ import ru.geekbrains.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
-    public static final int HP = 1;
+    private static final int HP = 5;
     private static final float SHIP_HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
@@ -41,6 +41,17 @@ public class MainShip extends Ship {
         hp = HP;
     }
 
+    public void startNewGame(Rect worldBounds) {
+        flushDestroy();
+        hp = HP;
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        stop();
+        pos.x = worldBounds.pos.x;
+    }
+
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
@@ -52,7 +63,9 @@ public class MainShip extends Ship {
     public void update(float delta) {
         super.update(delta);
         bulletPos.set(pos.x, pos.y + getHalfHeight());
+
         autoShoot(delta);
+
         if (getLeft() < worldBounds.getLeft()) {
             setLeft(worldBounds.getLeft());
             stop();
@@ -148,6 +161,13 @@ public class MainShip extends Ship {
                 || bullet.getTop() < getBottom());
     }
 
+    public boolean isBonusCollision(Rect bonus) {
+        return !(bonus.getRight() < getLeft()
+                || bonus.getLeft() > getRight()
+                || bonus.getBottom() > pos.y
+                || bonus.getTop() < getBottom());
+    }
+
     private void moveRight() {
         v.set(v0);
     }
@@ -158,9 +178,5 @@ public class MainShip extends Ship {
 
     private void stop() {
         v.setZero();
-    }
-
-    public void setHP (int hp) {
-        this.hp = hp;
     }
 }

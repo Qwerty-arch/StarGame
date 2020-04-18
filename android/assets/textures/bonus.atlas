@@ -1,0 +1,12 @@
+
+bonusAtlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bonus
+  rotate: false
+  xy: 1, 1
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1

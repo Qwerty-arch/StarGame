@@ -1,0 +1,12 @@
+
+TitleAtlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+SpaceShooter
+  rotate: false
+  xy: 1, 1
+  size: 600, 200
+  orig: 600, 200
+  offset: 0, 0
+  index: -1

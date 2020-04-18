@@ -14,6 +14,7 @@ import ru.geekbrains.sprites.Background;
 import ru.geekbrains.sprites.ButtonExit;
 import ru.geekbrains.sprites.ButtonPlay;
 import ru.geekbrains.sprites.Star;
+import ru.geekbrains.sprites.Title;
 
 public class MenuScreen extends BaseScreen {
 
@@ -23,8 +24,10 @@ public class MenuScreen extends BaseScreen {
 
     private Texture bg;
     private Background background;
+    private Title title;
 
     private TextureAtlas atlas;
+    private TextureAtlas atlasTitle;
 
     private Star[] stars;
     private ButtonExit buttonExit;
@@ -37,7 +40,8 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
-        bg = new Texture("textures/bg.png");
+        bg = new Texture("textures/background.png");
+        atlasTitle = new TextureAtlas("textures/TitleAtlas.atlas");     //////////////////////////////////
         atlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
         initSprites();
     }
@@ -53,6 +57,7 @@ public class MenuScreen extends BaseScreen {
         batch.dispose();
         bg.dispose();
         atlas.dispose();
+        atlasTitle.dispose();
         super.dispose();
     }
 
@@ -62,6 +67,7 @@ public class MenuScreen extends BaseScreen {
         for (Star star : stars) {
             star.resize(worldBounds);
         }
+        title.resize(worldBounds);
         buttonExit.resize(worldBounds);
         buttonPlay.resize(worldBounds);
     }
@@ -87,6 +93,7 @@ public class MenuScreen extends BaseScreen {
             for (int i = 0; i < STAR_COUNT; i++) {
                 stars[i] =  new Star(atlas);
             }
+            title = new Title(atlasTitle);
             buttonExit = new ButtonExit(atlas);
             buttonPlay = new ButtonPlay(atlas, game);
         } catch (GameException e) {
@@ -108,6 +115,7 @@ public class MenuScreen extends BaseScreen {
         for (Star star : stars) {
             star.draw(batch);
         }
+        title.draw(batch);
         buttonExit.draw(batch);
         buttonPlay.draw(batch);
         batch.end();
